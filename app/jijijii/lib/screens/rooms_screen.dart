@@ -23,7 +23,7 @@ class _RoomsScreenState extends State<RoomsScreen> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
-          mainAxisAlignment: MainAxisAlignment.between,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const Text('Управление номерами', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             ElevatedButton.icon(
