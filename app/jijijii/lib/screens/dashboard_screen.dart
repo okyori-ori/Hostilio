@@ -14,7 +14,6 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
 
-  // Все списки-пустышки удалены, экраны работают автономно через PHP API
   final List<Widget> screens = [
     const RoomsScreen(),
     const BookingsScreen(),
@@ -27,8 +26,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Hotel Management System v2.0 (PHP + MySQL)'),
-        backgroundColor: Colors.blue.shade700,
+        backgroundColor: const Color(0xFF1E1E1E), // Темный AppBar
         foregroundColor: Colors.white,
+        elevation: 2,
       ),
       body: Row(
         children: [
@@ -39,7 +39,12 @@ class _DashboardScreenState extends State<DashboardScreen> {
                 _selectedIndex = index;
               });
             },
+            backgroundColor: const Color(0xFF1A1A1A), // Темный NavigationRail
             labelType: NavigationRailLabelType.all,
+            selectedIconTheme: const IconThemeData(color: Colors.blueAccent, size: 30),
+            unselectedIconTheme: const IconThemeData(color: Colors.white54),
+            selectedLabelTextStyle: const TextStyle(color: Colors.blueAccent, fontWeight: FontWeight.bold),
+            unselectedLabelTextStyle: const TextStyle(color: Colors.white54),
             destinations: const [
               NavigationRailDestination(icon: Icon(Icons.hotel), label: Text('Номера')),
               NavigationRailDestination(icon: Icon(Icons.book_online), label: Text('Брони')),
@@ -47,10 +52,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
               NavigationRailDestination(icon: Icon(Icons.sync_alt), label: Text('Заезд/Выезд')),
             ],
           ),
-          const VerticalDivider(thickness: 1, width: 1),
+          const VerticalDivider(thickness: 1, width: 1, color: Colors.white10),
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(20.0),
               child: screens[_selectedIndex],
             ),
           ),

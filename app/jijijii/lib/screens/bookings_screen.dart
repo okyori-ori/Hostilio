@@ -37,9 +37,7 @@ class _BookingsScreenState extends State<BookingsScreen> {
       });
     } catch (e) {
       setState(() => _isLoading = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Ошибка сети: $e')),
-      );
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Ошибка сети: $e')));
     }
   }
 
@@ -69,23 +67,24 @@ class _BookingsScreenState extends State<BookingsScreen> {
             itemCount: _bookings.length,
             itemBuilder: (context, index) {
               final booking = _bookings[index];
-              // Безопасный поиск связанных данных
               final room = _rooms.firstWhere((r) => r.id == booking.roomId, orElse: () => Room(id: '', number: '?', type: '', pricePerNight: 0, status: ''));
               final client = _clients.firstWhere((c) => c.id == booking.clientId, orElse: () => Client(id: '', fullName: 'Удален', phone: '', email: '', history: []));
 
               return Card(
                 color: booking.isActive ? Colors.white : Colors.grey.shade300,
                 child: ListTile(
-                  title: Text('Бронь — Комната №${room.number}'),
+                  title: Text('Бронь — Комната №${room.number} (${room.type})'),
                   subtitle: Text('Клиент: ${client.fullName}\nСтоимость: ${booking.totalCost} руб.'),
-                  trailing: booking.isActive
-                      ? IconButton(
-                    icon: const Icon(Icons.cancel, color: Colors.red),
+                  trailing: IconButton(
+                    icon: const Icon(Icons.delete_forever, color: Colors.red),
                     onPressed: () {
-                      ApiService.updateRoomStatus(room.id, 'Свободен').then((_) => _loadAllData());
+                      ApiService.deleteBooking(booking.id).then((success) {
+                        if (success) {
+                          ApiService.updateRoomStatus(room.id, 'Свободен').then((_) => _loadAllData());
+                        }
+                      });
                     },
-                  )
-                      : null,
+                  ),
                 ),
               );
             },
@@ -96,7 +95,6 @@ class _BookingsScreenState extends State<BookingsScreen> {
   }
 
   void _createBookingDialog() {
-    // Выбираем только свободные комнаты для новой брони
     final freeRooms = _rooms.where((r) => r.status == 'Свободен').toList();
     if (freeRooms.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Нет свободных номеров для бронирования!')));
@@ -123,7 +121,7 @@ class _BookingsScreenState extends State<BookingsScreen> {
                 DropdownButton<Room>(
                   value: selectedRoom,
                   isExpanded: true,
-                  items: freeRooms.map((r) => DropdownMenuItem(value: r, child: Text('Комната ${r.number} (${r.pricePerNight} руб)'))).toList(),
+                  items: freeRooms.map((r) => DropdownMenuItem(value: r, child: Text('Комната ${r.number} (${r.type} - ${r.pricePerNight} руб)'))).toList(),
                   onChanged: (v) => setDialogState(() => selectedRoom = v!),
                 ),
                 const SizedBox(height: 10),

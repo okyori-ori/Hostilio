@@ -5,7 +5,7 @@ import '../models/client.dart';
 import '../models/booking.dart';
 
 class ApiService {
-  // Напоминалка: если тестируешь на Android-эмуляторе, замени localhost на 10.0.2.2
+  // Напоминалка: если запускаешь на эмуляторе Android, укажи http://10.0.2.2/hotel_api
   static const String baseUrl = 'http://localhost/hotel_api';
 
   // --- НОМЕРА ---
@@ -80,6 +80,29 @@ class ApiService {
     return response.statusCode == 200 && jsonDecode(response.body)['success'] == true;
   }
 
+  static Future<bool> updateClient(String id, String name, String phone, String email) async {
+    final response = await http.put(
+      Uri.parse('$baseUrl/clients.php'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({
+        "id": id,
+        "full_name": name,
+        "phone": phone,
+        "email": email,
+      }),
+    );
+    return response.statusCode == 200 && jsonDecode(response.body)['success'] == true;
+  }
+
+  static Future<bool> deleteClient(String id) async {
+    final response = await http.delete(
+      Uri.parse('$baseUrl/clients.php'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"id": id}),
+    );
+    return response.statusCode == 200 && jsonDecode(response.body)['success'] == true;
+  }
+
   // --- БРОНИ ---
   static Future<List<Booking>> getBookings() async {
     final response = await http.get(Uri.parse('$baseUrl/bookings.php'));
@@ -109,6 +132,15 @@ class ApiService {
         "days": days,
         "total_cost": totalCost
       }),
+    );
+    return response.statusCode == 200 && jsonDecode(response.body)['success'] == true;
+  }
+
+  static Future<bool> deleteBooking(String id) async {
+    final response = await http.delete(
+      Uri.parse('$baseUrl/bookings.php'),
+      headers: {"Content-Type": "application/json"},
+      body: jsonEncode({"id": id}),
     );
     return response.statusCode == 200 && jsonDecode(response.body)['success'] == true;
   }
