@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import '../models/room.dart';
-import '../models/client.dart';
-import '../models/booking.dart';
 import 'rooms_screen.dart';
 import 'bookings_screen.dart';
 import 'clients_screen.dart';
@@ -17,37 +14,24 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   int _selectedIndex = 0;
 
-  // Имитация базы данных (In-Memory списки для демонстрации преподу)
-  final List<Room> rooms = [
-    Room(id: '1', number: '101', type: 'Стандарт', pricePerNight: 3000, status: 'Свободен'),
-    Room(id: '2', number: '102', type: 'Люкс', pricePerNight: 7000, status: 'Занят'),
+  // Все списки-пустышки удалены, экраны работают автономно через PHP API
+  final List<Widget> screens = [
+    const RoomsScreen(),
+    const BookingsScreen(),
+    const ClientsScreen(),
+    const CheckInOutScreen(),
   ];
-
-  final List<Client> clients = [
-    Client(id: '1', fullName: 'Иванов Иван Иванович', phone: '+79991112233', email: 'ivanov@mail.ru', history: ['101']),
-  ];
-
-  final List<Booking> bookings = [];
 
   @override
   Widget build(BuildContext context) {
-    // Список экранов, куда прокидываем наши "базы данных"
-    final List<Widget> screens = [
-      RoomsScreen(rooms: rooms),
-      BookingsScreen(bookings: bookings, rooms: rooms, clients: clients),
-      ClientsScreen(clients: clients),
-      CheckInOutScreen(rooms: rooms, bookings: bookings),
-    ];
-
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Hotel Management System v1.0'),
+        title: const Text('Hotel Management System v2.0 (PHP + MySQL)'),
         backgroundColor: Colors.blue.shade700,
         foregroundColor: Colors.white,
       ),
       body: Row(
         children: [
-          // Боковое меню для удобства веб-интерфейса
           NavigationRail(
             selectedIndex: _selectedIndex,
             onDestinationSelected: (int index) {
@@ -64,7 +48,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
             ],
           ),
           const VerticalDivider(thickness: 1, width: 1),
-          // Основной контент
           Expanded(
             child: Padding(
               padding: const EdgeInsets.all(16.0),

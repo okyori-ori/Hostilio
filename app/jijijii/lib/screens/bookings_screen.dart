@@ -2,19 +2,47 @@ import 'package:flutter/material.dart';
 import '../models/booking.dart';
 import '../models/room.dart';
 import '../models/client.dart';
+import '../services/api_service.dart';
 
 class BookingsScreen extends StatefulWidget {
-  final List<Booking> bookings;
-  final List<Room> rooms;
-  final List<Client> clients;
-
-  const BookingsScreen({super.key, required this.bookings, required this.rooms, required this.clients});
+  const BookingsScreen({super.key});
 
   @override
   State<BookingsScreen> createState() => _BookingsScreenState();
 }
 
 class _BookingsScreenState extends State<BookingsScreen> {
+  List<Booking> _bookings = [];
+  List<Room> _rooms = [];
+  List<Client> _clients = [];
+  bool _isLoading = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadAllData();
+  }
+
+  void _loadAllData() async {
+    setState(() => _isLoading = true);
+    try {
+      final bookings = await ApiService.getBookings();
+      final rooms = await ApiService.getRooms();
+      final clients = await ApiService.getClients();
+      setState(() {
+        _bookings = bookings;
+        _rooms = rooms;
+        _clients = clients;
+        _isLoading = false;
+      });
+    } catch (e) {
+      setState(() => _isLoading = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Ошибка сети: $e')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,9 +51,9 @@ class _BookingsScreenState extends State<BookingsScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('Бронирование номеров', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
+            const Text('Бронирование номеров (MySQL)', style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
             ElevatedButton.icon(
-              onPressed: widget.rooms.isEmpty || widget.clients.isEmpty ? null : _createBookingDialog,
+              onPressed: _rooms.isEmpty || _clients.isEmpty ? null : _createBookingDialog,
               icon: const Icon(Icons.add),
               label: const Text('Создать бронь'),
             ),
@@ -33,28 +61,28 @@ class _BookingsScreenState extends State<BookingsScreen> {
         ),
         const SizedBox(height: 10),
         Expanded(
-          child: widget.bookings.isEmpty
+          child: _isLoading
+              ? const Center(child: CircularProgressIndicator())
+              : _bookings.isEmpty
               ? const Center(child: Text('Нет активных бронирований'))
               : ListView.builder(
-            itemCount: widget.bookings.length,
+            itemCount: _bookings.length,
             itemBuilder: (context, index) {
-              final booking = widget.bookings[index];
-              final room = widget.rooms.firstWhere((r) => r.id == booking.roomId);
-              final client = widget.clients.firstWhere((c) => c.id == booking.clientId);
+              final booking = _bookings[index];
+              // Безопасный поиск связанных данных
+              final room = _rooms.firstWhere((r) => r.id == booking.roomId, orElse: () => Room(id: '', number: '?', type: '', pricePerNight: 0, status: ''));
+              final client = _clients.firstWhere((c) => c.id == booking.clientId, orElse: () => Client(id: '', fullName: 'Удален', phone: '', email: '', history: []));
 
               return Card(
                 color: booking.isActive ? Colors.white : Colors.grey.shade300,
                 child: ListTile(
-                  title: Text('Бронь — Комната ${room.number}'),
+                  title: Text('Бронь — Комната №${room.number}'),
                   subtitle: Text('Клиент: ${client.fullName}\nСтоимость: ${booking.totalCost} руб.'),
                   trailing: booking.isActive
                       ? IconButton(
                     icon: const Icon(Icons.cancel, color: Colors.red),
                     onPressed: () {
-                      setState(() {
-                        booking.isActive = false;
-                        room.status = 'Свободен';
-                      });
+                      ApiService.updateRoomStatus(room.id, 'Свободен').then((_) => _loadAllData());
                     },
                   )
                       : null,
@@ -68,8 +96,15 @@ class _BookingsScreenState extends State<BookingsScreen> {
   }
 
   void _createBookingDialog() {
-    Room selectedRoom = widget.rooms.first;
-    Client selectedClient = widget.clients.first;
+    // Выбираем только свободные комнаты для новой брони
+    final freeRooms = _rooms.where((r) => r.status == 'Свободен').toList();
+    if (freeRooms.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Нет свободных номеров для бронирования!')));
+      return;
+    }
+
+    Room selectedRoom = freeRooms.first;
+    Client selectedClient = _clients.first;
     int days = 1;
 
     showDialog(
@@ -82,19 +117,25 @@ class _BookingsScreenState extends State<BookingsScreen> {
             title: const Text('Новое бронирование'),
             content: Column(
               mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const Text('Выберите комнату:'),
                 DropdownButton<Room>(
                   value: selectedRoom,
-                  items: widget.rooms.map((r) => DropdownMenuItem(value: r, child: Text('Комната ${r.number}'))).toList(),
+                  isExpanded: true,
+                  items: freeRooms.map((r) => DropdownMenuItem(value: r, child: Text('Комната ${r.number} (${r.pricePerNight} руб)'))).toList(),
                   onChanged: (v) => setDialogState(() => selectedRoom = v!),
                 ),
+                const SizedBox(height: 10),
+                const Text('Выберите клиента:'),
                 DropdownButton<Client>(
                   value: selectedClient,
-                  items: widget.clients.map((c) => DropdownMenuItem(value: c, child: Text(c.fullName))).toList(),
+                  isExpanded: true,
+                  items: _clients.map((c) => DropdownMenuItem(value: c, child: Text(c.fullName))).toList(),
                   onChanged: (v) => setDialogState(() => selectedClient = v!),
                 ),
                 TextField(
-                  decoration: const InputDecoration(labelText: 'Количество дней'),
+                  decoration: const InputDecoration(labelText: 'Количество дней проживания'),
                   keyboardType: TextInputType.number,
                   onChanged: (v) {
                     setDialogState(() {
@@ -103,25 +144,19 @@ class _BookingsScreenState extends State<BookingsScreen> {
                   },
                 ),
                 const SizedBox(height: 15),
-                Text('Итоговая стоимость: $totalCost руб.', style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green)),
+                Text('Итоговая стоимость: $totalCost руб.', style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.green, fontSize: 16)),
               ],
             ),
             actions: [
               TextButton(onPressed: () => Navigator.pop(context), child: const Text('Отмена')),
               ElevatedButton(
                 onPressed: () {
-                  setState(() {
-                    widget.bookings.add(Booking(
-                      id: DateTime.now().toString(),
-                      roomId: selectedRoom.id,
-                      clientId: selectedClient.id,
-                      checkInDate: DateTime.now(),
-                      checkOutDate: DateTime.now().add(Duration(days: days)),
-                      totalCost: totalCost,
-                    ));
-                    selectedRoom.status = 'Занят';
+                  ApiService.addBooking(selectedRoom.id, selectedClient.id, selectedRoom.number, days, totalCost).then((success) {
+                    if (success) {
+                      _loadAllData();
+                      Navigator.pop(context);
+                    }
                   });
-                  Navigator.pop(context);
                 },
                 child: const Text('Оформить'),
               )
