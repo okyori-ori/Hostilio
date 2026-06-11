@@ -1,0 +1,36 @@
+CREATE TABLE IF NOT EXISTS `rooms` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`number` varchar(50) NOT NULL,
+`type` varchar(100) NOT NULL,
+`price_per_night` decimal(10,2) NOT NULL,
+`status` varchar(50) NOT NULL DEFAULT 'Свободен',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `clients` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`full_name` varchar(255) NOT NULL,
+`phone` varchar(50) NOT NULL,
+`email` varchar(100) DEFAULT NULL,
+`history` text DEFAULT '',
+PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE IF NOT EXISTS `bookings` (
+`id` int(11) NOT NULL AUTO_INCREMENT,
+`room_id` int(11) NOT NULL,
+`client_id` int(11) NOT NULL,
+`check_in_date` datetime NOT NULL,
+`check_out_date` datetime NOT NULL,
+`total_cost` decimal(10,2) NOT NULL,
+`is_active` tinyint(1) NOT NULL DEFAULT 1,
+PRIMARY KEY (`id`),
+FOREIGN KEY (`room_id`) REFERENCES `rooms` (`id`) ON DELETE CASCADE,
+FOREIGN KEY (`client_id`) REFERENCES `clients` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- Наполняем тестовыми номерами для проверки работы
+INSERT INTO `rooms` (`number`, `type`, `price_per_night`, `status`) VALUES
+('101', 'Стандарт', 2500.00, 'Свободен'),
+('102', 'Премиум', 4500.00, 'Свободен'),
+('201', 'Люкс', 7000.00, 'Свободен');
