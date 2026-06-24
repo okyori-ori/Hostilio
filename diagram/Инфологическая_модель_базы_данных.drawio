@@ -1,0 +1,117 @@
+<mxfile host="Electron">
+  <diagram name="Инфологическая модель БД" id="hostilioInfo01">
+    <mxGraphModel dx="1815" dy="1375" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Entity: Клиент -->
+        <mxCell id="hi-client" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;" value="Клиент" vertex="1">
+          <mxGeometry height="80" width="130" x="120" y="380" as="geometry" />
+        </mxCell>
+
+        <!-- Client attributes -->
+        <mxCell id="hi-c-id" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="id" vertex="1">
+          <mxGeometry height="40" width="90" x="40" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-c-fio" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="ФИО (full_name)" vertex="1">
+          <mxGeometry height="50" width="140" x="150" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-c-phone" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="телефон (phone)" vertex="1">
+          <mxGeometry height="50" width="140" x="300" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-c-email" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="email" vertex="1">
+          <mxGeometry height="40" width="110" x="40" y="300" as="geometry" />
+        </mxCell>
+
+        <mxCell id="hi-c-e1" edge="1" parent="1" target="hi-c-id"><mxGeometry relative="1" as="geometry"><mxPoint x="185" y="420" as="sourcePoint" /></mxGeometry></mxCell>
+        <mxCell id="hi-c-e2" edge="1" parent="1" target="hi-c-fio"><mxGeometry relative="1" as="geometry"><mxPoint x="185" y="420" as="sourcePoint" /></mxGeometry></mxCell>
+        <mxCell id="hi-c-e3" edge="1" parent="1" target="hi-c-phone"><mxGeometry relative="1" as="geometry"><mxPoint x="185" y="420" as="sourcePoint" /></mxGeometry></mxCell>
+        <mxCell id="hi-c-e4" edge="1" parent="1" target="hi-c-email"><mxGeometry relative="1" as="geometry"><mxPoint x="185" y="420" as="sourcePoint" /></mxGeometry></mxCell>
+
+        <!-- Entity: Номер -->
+        <mxCell id="hi-room" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;" value="Номер" vertex="1">
+          <mxGeometry height="80" width="130" x="700" y="380" as="geometry" />
+        </mxCell>
+
+        <!-- Room attributes -->
+        <mxCell id="hi-r-id" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="id" vertex="1">
+          <mxGeometry height="40" width="90" x="790" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-r-number" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="номер комнаты&#10;(number)" vertex="1">
+          <mxGeometry height="50" width="140" x="640" y="190" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-r-type" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="категория (type)" vertex="1">
+          <mxGeometry height="50" width="140" x="500" y="240" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-r-price" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="цена за сутки&#10;(price_per_night)" vertex="1">
+          <mxGeometry height="50" width="150" x="920" y="280" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-r-status" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="статус&#10;(status)" vertex="1">
+          <mxGeometry height="50" width="120" x="900" y="370" as="geometry" />
+        </mxCell>
+
+        <mxCell id="hi-r-e1" edge="1" parent="1" target="hi-r-id"><mxGeometry relative="1" as="geometry"><mxPoint x="765" y="420" as="sourcePoint" /></mxGeometry></mxCell>
+        <mxCell id="hi-r-e2" edge="1" parent="1" target="hi-r-number"><mxGeometry relative="1" as="geometry"><mxPoint x="765" y="420" as="sourcePoint" /></mxGeometry></mxCell>
+        <mxCell id="hi-r-e3" edge="1" parent="1" target="hi-r-type"><mxGeometry relative="1" as="geometry"><mxPoint x="765" y="420" as="sourcePoint" /></mxGeometry></mxCell>
+        <mxCell id="hi-r-e4" edge="1" parent="1" target="hi-r-price"><mxGeometry relative="1" as="geometry"><mxPoint x="765" y="420" as="sourcePoint" /></mxGeometry></mxCell>
+        <mxCell id="hi-r-e5" edge="1" parent="1" target="hi-r-status"><mxGeometry relative="1" as="geometry"><mxPoint x="765" y="420" as="sourcePoint" /></mxGeometry></mxCell>
+
+        <!-- Relationship: Бронирует -->
+        <mxCell id="hi-rel" parent="1" style="shape=rhombus;whiteSpace=wrap;html=1;fontStyle=1;" value="Бронирует" vertex="1">
+          <mxGeometry height="90" width="150" x="365" y="500" as="geometry" />
+        </mxCell>
+
+        <mxCell id="hi-rel-e1" edge="1" parent="1" source="hi-client" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.7;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="hi-rel">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-rel-e1-label" connectable="0" parent="hi-rel-e1" style="resizable=0;html=1;align=center;verticalAlign=bottom;labelBackgroundColor=none;" value="1" vertex="1">
+          <mxGeometry relative="1" x="-0.6" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <mxCell id="hi-rel-e2" edge="1" parent="1" source="hi-room" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.7;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" target="hi-rel">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-rel-e2-label" connectable="0" parent="hi-rel-e2" style="resizable=0;html=1;align=center;verticalAlign=bottom;labelBackgroundColor=none;" value="1" vertex="1">
+          <mxGeometry relative="1" x="-0.6" as="geometry"><mxPoint as="offset" /></mxGeometry>
+        </mxCell>
+
+        <!-- Booking entity (weak entity derived from relationship) -->
+        <mxCell id="hi-booking" parent="1" style="ellipse;whiteSpace=wrap;html=1;fontStyle=1;" value="Бронирование" vertex="1">
+          <mxGeometry height="80" width="150" x="365" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-bk-e0" edge="1" parent="1" source="hi-rel" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" target="hi-booking">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Booking attributes -->
+        <mxCell id="hi-bk-id" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="id" vertex="1">
+          <mxGeometry height="40" width="80" x="200" y="780" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-bk-checkin" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="дата заезда&#10;(check_in_date)" vertex="1">
+          <mxGeometry height="50" width="150" x="180" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-bk-checkout" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="дата выезда&#10;(check_out_date)" vertex="1">
+          <mxGeometry height="50" width="150" x="350" y="900" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-bk-cost" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="общая стоимость&#10;(total_cost)" vertex="1">
+          <mxGeometry height="50" width="150" x="540" y="850" as="geometry" />
+        </mxCell>
+        <mxCell id="hi-bk-active" parent="1" style="ellipse;whiteSpace=wrap;html=1;" value="статус активности&#10;(is_active)" vertex="1">
+          <mxGeometry height="50" width="150" x="560" y="780" as="geometry" />
+        </mxCell>
+
+        <mxCell id="hi-bk-e1" edge="1" parent="1" target="hi-bk-id"><mxGeometry relative="1" as="geometry"><mxPoint x="440" y="730" as="sourcePoint" /></mxGeometry></mxCell>
+        <mxCell id="hi-bk-e2" edge="1" parent="1" target="hi-bk-checkin"><mxGeometry relative="1" as="geometry"><mxPoint x="440" y="730" as="sourcePoint" /></mxGeometry></mxCell>
+        <mxCell id="hi-bk-e3" edge="1" parent="1" target="hi-bk-checkout"><mxGeometry relative="1" as="geometry"><mxPoint x="440" y="730" as="sourcePoint" /></mxGeometry></mxCell>
+        <mxCell id="hi-bk-e4" edge="1" parent="1" target="hi-bk-cost"><mxGeometry relative="1" as="geometry"><mxPoint x="440" y="730" as="sourcePoint" /></mxGeometry></mxCell>
+        <mxCell id="hi-bk-e5" edge="1" parent="1" target="hi-bk-active"><mxGeometry relative="1" as="geometry"><mxPoint x="440" y="730" as="sourcePoint" /></mxGeometry></mxCell>
+
+        <!-- Note about cardinality -->
+        <mxCell id="hi-note" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;fontStyle=2;" value="Связь «Бронирует»: M:N (один клиент может&#10;иметь несколько бронирований, один номер&#10;может быть забронирован многократно во времени)" vertex="1">
+          <mxGeometry height="50" width="380" x="245" y="600" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
