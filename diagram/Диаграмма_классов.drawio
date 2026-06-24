@@ -1,0 +1,90 @@
+<mxfile host="Electron">
+  <diagram name="Диаграмма классов" id="hostilioClasses01">
+    <mxGraphModel dx="1663" dy="1260" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Class: Client -->
+        <mxCell id="hcl-client" parent="1" style="swimlane;fontStyle=1;align=center;startSize=26;fontSize=13;fontFamily=Times New Roman;" value="Client" vertex="1">
+          <mxGeometry height="220" width="240" x="40" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="hcl-client-attrs" parent="hcl-client" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=8;overflow=hidden;rotatable=0;fontSize=12;fontFamily=Times New Roman;" value="- id: int&#xa;- fullName: String&#xa;- phone: String&#xa;- email: String" vertex="1">
+          <mxGeometry height="90" width="240" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="hcl-client-line" parent="hcl-client" style="line;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="10" width="240" y="116" as="geometry" />
+        </mxCell>
+        <mxCell id="hcl-client-methods" parent="hcl-client" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;overflow=hidden;rotatable=0;fontSize=12;fontFamily=Times New Roman;" value="+ register(): bool&#xa;+ search(query: String): List&#xa;+ getBookings(): List&#xa;+ update(): bool" vertex="1">
+          <mxGeometry height="90" width="240" y="126" as="geometry" />
+        </mxCell>
+
+        <!-- Class: Room -->
+        <mxCell id="hcl-room" parent="1" style="swimlane;fontStyle=1;align=center;startSize=26;fontSize=13;fontFamily=Times New Roman;" value="Room" vertex="1">
+          <mxGeometry height="220" width="240" x="800" y="120" as="geometry" />
+        </mxCell>
+        <mxCell id="hcl-room-attrs" parent="hcl-room" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=8;overflow=hidden;rotatable=0;fontSize=12;fontFamily=Times New Roman;" value="- id: int&#xa;- number: String&#xa;- type: String&#xa;- pricePerNight: decimal&#xa;- status: String" vertex="1">
+          <mxGeometry height="100" width="240" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="hcl-room-line" parent="hcl-room" style="line;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="10" width="240" y="126" as="geometry" />
+        </mxCell>
+        <mxCell id="hcl-room-methods" parent="hcl-room" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;overflow=hidden;rotatable=0;fontSize=12;fontFamily=Times New Roman;" value="+ changeStatus(status: String): bool&#xa;+ getInfo(): String&#xa;+ isAvailable(): bool" vertex="1">
+          <mxGeometry height="80" width="240" y="136" as="geometry" />
+        </mxCell>
+
+        <!-- Class: Booking -->
+        <mxCell id="hcl-booking" parent="1" style="swimlane;fontStyle=1;align=center;startSize=26;fontSize=13;fontFamily=Times New Roman;" value="Booking" vertex="1">
+          <mxGeometry height="240" width="260" x="380" y="520" as="geometry" />
+        </mxCell>
+        <mxCell id="hcl-booking-attrs" parent="hcl-booking" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;spacingRight=8;overflow=hidden;rotatable=0;fontSize=12;fontFamily=Times New Roman;" value="- id: int&#xa;- roomId: int&#xa;- clientId: int&#xa;- checkInDate: Date&#xa;- checkOutDate: Date&#xa;- totalCost: decimal&#xa;- isActive: bool" vertex="1">
+          <mxGeometry height="140" width="260" y="26" as="geometry" />
+        </mxCell>
+        <mxCell id="hcl-booking-line" parent="hcl-booking" style="line;strokeColor=inherit;" value="" vertex="1">
+          <mxGeometry height="10" width="260" y="166" as="geometry" />
+        </mxCell>
+        <mxCell id="hcl-booking-methods" parent="hcl-booking" style="text;strokeColor=none;fillColor=none;align=left;verticalAlign=top;spacingLeft=8;overflow=hidden;rotatable=0;fontSize=12;fontFamily=Times New Roman;" value="+ create(): bool&#xa;+ calculateCost(): decimal&#xa;+ checkOut(): bool&#xa;+ getActiveBookings(): List" vertex="1">
+          <mxGeometry height="80" width="260" y="176" as="geometry" />
+        </mxCell>
+
+        <!-- Relationship: Client to Booking -->
+        <mxCell id="hcl-edge1" edge="1" parent="1" source="hcl-client" style="endArrow=ERmany;startArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.3;entryDx=0;entryDy=0;fontSize=12;fontFamily=Times New Roman;edgeStyle=orthogonalEdgeStyle;" target="hcl-booking" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="160" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hcl-edge1-l1" connectable="0" parent="hcl-edge1" style="resizable=0;fontSize=12;fontFamily=Times New Roman;" value="1" vertex="1">
+          <mxGeometry relative="1" x="-0.8" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hcl-edge1-l2" connectable="0" parent="hcl-edge1" style="resizable=0;fontSize=12;fontFamily=Times New Roman;" value="0..*&#xa;оформляет" vertex="1">
+          <mxGeometry relative="1" x="0.8" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+
+        <!-- Relationship: Room to Booking -->
+        <mxCell id="hcl-edge2" edge="1" parent="1" source="hcl-room" style="endArrow=ERmany;startArrow=ERone;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.3;entryDx=0;entryDy=0;fontSize=12;fontFamily=Times New Roman;edgeStyle=orthogonalEdgeStyle;" target="hcl-booking" value="">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="920" y="470" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hcl-edge2-l1" connectable="0" parent="hcl-edge2" style="resizable=0;fontSize=12;fontFamily=Times New Roman;" value="1" vertex="1">
+          <mxGeometry relative="1" x="-0.8" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="hcl-edge2-l2" connectable="0" parent="hcl-edge2" style="resizable=0;fontSize=12;fontFamily=Times New Roman;" value="0..*&#xa;закреплен в" vertex="1">
+          <mxGeometry relative="1" x="0.8" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

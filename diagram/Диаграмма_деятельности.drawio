@@ -1,0 +1,151 @@
+<mxfile host="Electron">
+  <diagram name="Диаграмма деятельности" id="hostilioActivity01">
+    <mxGraphModel dx="1815" dy="1375" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+
+        <!-- Start -->
+        <mxCell id="ha-start" parent="1" style="ellipse;html=1;shape=startState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="290" y="40" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e1" edge="1" parent="1" source="ha-start" style="edgeStyle=orthogonalEdgeStyle;html=1;endArrow=open;endSize=8;rounded=0;" target="ha-login">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Login -->
+        <mxCell id="ha-login" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Ввод логина и пароля" vertex="1">
+          <mxGeometry height="60" width="140" x="235" y="110" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e2" edge="1" parent="1" source="ha-login" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ha-check">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Decision: данные верны? -->
+        <mxCell id="ha-check" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Данные верны?" vertex="1">
+          <mxGeometry height="80" width="110" x="250" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e3" edge="1" parent="1" source="ha-check" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="ha-login">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="460" y="250" />
+              <mxPoint x="460" y="140" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ha-no-label" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="нет" vertex="1">
+          <mxGeometry height="30" width="60" x="390" y="220" as="geometry" />
+        </mxCell>
+
+        <mxCell id="ha-e4" edge="1" parent="1" source="ha-check" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ha-main">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-yes-label" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="да" vertex="1">
+          <mxGeometry height="30" width="60" x="280" y="320" as="geometry" />
+        </mxCell>
+
+        <!-- Main screen -->
+        <mxCell id="ha-main" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Главный экран (номерной фонд)" vertex="1">
+          <mxGeometry height="60" width="160" x="225" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e5" edge="1" parent="1" source="ha-main" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ha-action">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- Decision: выбор действия -->
+        <mxCell id="ha-action" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Выбор действия" vertex="1">
+          <mxGeometry height="90" width="110" x="250" y="480" as="geometry" />
+        </mxCell>
+
+        <!-- branch: добавить клиента -->
+        <mxCell id="ha-e6" edge="1" parent="1" source="ha-action" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;" target="ha-addclient">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-lbl1" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="добавить клиента" vertex="1">
+          <mxGeometry height="30" width="120" x="60" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-addclient" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Заполнение формы&#10;добавления клиента" vertex="1">
+          <mxGeometry height="60" width="140" x="20" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e7" edge="1" parent="1" source="ha-addclient" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ha-validate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-validate" parent="1" style="rhombus;whiteSpace=wrap;html=1;" value="Валидация ФИО /&#10;паспорта пройдена?" vertex="1">
+          <mxGeometry height="90" width="120" x="30" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e8" edge="1" parent="1" source="ha-validate" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="ha-addclient">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="190" y="685" />
+              <mxPoint x="190" y="570" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="ha-lbl2" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="нет" vertex="1">
+          <mxGeometry height="30" width="60" x="160" y="650" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e9" edge="1" parent="1" source="ha-validate" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ha-savedb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-lbl3" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="да" vertex="1">
+          <mxGeometry height="30" width="60" x="60" y="750" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-savedb" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Отправка JSON на сервер&#10;(INSERT INTO clients)" vertex="1">
+          <mxGeometry height="60" width="160" x="10" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e10" edge="1" parent="1" source="ha-savedb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="ha-end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- branch: изменить статус номера -->
+        <mxCell id="ha-e11" edge="1" parent="1" source="ha-action" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="ha-status">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-lbl4" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="изменить статус номера" vertex="1">
+          <mxGeometry height="30" width="150" x="230" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-status" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Выбор номера и&#10;нового статуса" vertex="1">
+          <mxGeometry height="60" width="140" x="235" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e12" edge="1" parent="1" source="ha-status" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ha-updatedb">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-updatedb" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Обновление записи в БД&#10;(UPDATE rooms)" vertex="1">
+          <mxGeometry height="60" width="160" x="225" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e13" edge="1" parent="1" source="ha-updatedb" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="ha-end">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+
+        <!-- branch: поиск клиента -->
+        <mxCell id="ha-e14" edge="1" parent="1" source="ha-action" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;" target="ha-search">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-lbl5" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="поиск клиента" vertex="1">
+          <mxGeometry height="30" width="110" x="420" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-search" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Ввод запроса поиска&#10;(ФИО / паспорт)" vertex="1">
+          <mxGeometry height="60" width="160" x="450" y="540" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e15" edge="1" parent="1" source="ha-search" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="ha-results">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-results" parent="1" style="rounded=1;whiteSpace=wrap;html=1;" value="Отображение&#10;результатов поиска" vertex="1">
+          <mxGeometry height="60" width="160" x="450" y="640" as="geometry" />
+        </mxCell>
+        <mxCell id="ha-e16" edge="1" parent="1" source="ha-results" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="ha-end">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="530" y="900" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- End -->
+        <mxCell id="ha-end" parent="1" style="ellipse;html=1;shape=endState;fillColor=#000000;strokeColor=#000000;" value="" vertex="1">
+          <mxGeometry height="30" width="30" x="290" y="900" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
